@@ -10,8 +10,25 @@ const candidateSchema = new mongoose.Schema({
         require: true
     },
     age: {
-        type: number,
+        type: Number,
         require: true
+    },
+    votes: [
+        {
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User',
+                require: true
+            },
+            votedAt: {
+                type: Date,
+                default: Date.now()
+            }
+        }
+    ],
+    voteCount: {
+        type: Number,
+        default: 0
     }
 })
 const candidate = mongoose.model('candidate', candidateSchema)
