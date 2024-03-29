@@ -8,4 +8,3 @@ Routes? -->
 
 1. user sign in/log in
 2. see the list of candidates
-3.
