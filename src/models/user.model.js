@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
     name: {
-        type: Stringm,
+        type: String,
         require: true
     },
     age: {
@@ -15,11 +15,7 @@ const userSchema = new mongoose.Schema({
     mobile: {
         type: String
     },
-    address: {
-        type: String,
-        require: true
-    },
-    aadharCardNumber: {
+    voterId: {
         type: String,
         require: true,
         unique: true,
@@ -27,11 +23,6 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         require: true
-    },
-    role: {
-        type: String,
-        enum: ['voter', 'admin'],
-        default: 'voter'
     },
     isVoted: {
         type: Boolean,
