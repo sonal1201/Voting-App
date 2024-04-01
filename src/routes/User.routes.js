@@ -7,7 +7,7 @@ router.post('/signup', async (req, res) => {
     try {
         const data = req.body;
         // Check if user exists
-        const existingUser = await User.findOne({ email: data.email });
+        const existingUser = await User.findOne({ email: data.email, mobile: data.mobile });
         //If voter already signed up
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists' });
@@ -20,11 +20,24 @@ router.post('/signup', async (req, res) => {
         }
     }
     catch {
-        console.log(err);
         res.status(500).json({ error: "server error" });
     }
 })
 
+router.post('/login', async (req, res) => {
+    try {
+        const user = await User.findOne({ mobile: req.body.mobile });
+        if (!user) return res.status(400).json('mobile number not exist');
 
+        const validPassword = await User.findOne({ password: req.body.password });
+        if (!validPassword) return res.status(400).json('Invalid password');
+
+        if (user && validPassword) {
+            res.status(201).json({ message: "login sucessfully" })
+        }
+    } catch (err) {
+        res.status(500).json({ error: "server error" });
+    }
+});
 
 module.exports = router
