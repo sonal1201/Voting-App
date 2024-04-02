@@ -40,4 +40,21 @@ router.post('/login', async (req, res) => {
     }
 });
 
+router.get('/login/profile', async (req, res) => {
+    try {
+        const getProfile = req.body;
+        const existingUser = await User.findOne({ voterId: getProfile.voterId });
+        if (existingUser) {
+            return res.status(200).json(existingUser);
+        }
+        else {
+            return res.status(400).json({ msg: "User not found" })
+        }
+    } catch (error) {
+        res.status(500).json({ error: "server error" });
+    }
+
+
+})
+
 module.exports = router
